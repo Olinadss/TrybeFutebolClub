@@ -1,4 +1,4 @@
-import { Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import Clubs from './Clubs';
 // import OtherModel from './OtherModel';
@@ -18,6 +18,32 @@ class Matchs extends Model {
 }
 
 Matchs.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  homeTeam: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  homeTeamGoals: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  awayTeam: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  awayTeamGoals: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  inProgress: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 }, {
   underscored: true,
   sequelize: db,
@@ -28,10 +54,14 @@ Matchs.init({
   * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
-Clubs.belongsTo(Matchs, { foreignKey: 'clubs_id', as: 'clubsId' });
+Clubs.belongsTo(Matchs, { foreignKey: 'homeTeam', as: 'teamA' });
+Clubs.belongsTo(Matchs, { foreignKey: 'awayTeam', as: 'teamB' });
+
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
 Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId' });
+Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId' });
+
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 

@@ -1,17 +1,37 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
+import Users from '../database/models/Users';
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
+import { strictEqual } from 'assert';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('1 - Testa Users Model', () => {
+
+  // const users = {
+  //   id: 1,
+  //   username: "Admin",
+  //   role: "admin",
+  //   email: "admin@admin.com"
+  // }
+
+  // type teste = {
+  //   id: number
+  //   username: string
+  //   role: string
+  //   email: string
+  // }
+
+  // before(() => {
+  //   const eventMock = { findOne: sinon.spy() };
+  //   sinon.stub(Users, 'findOne').resolves({ users } as Users);
+  // });
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -38,7 +58,17 @@ describe('Seu teste', () => {
   //   expect(...)
   // });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('Testa se a classe User existe', () => {
+    const objUsers: Users = new Users();
+    expect(objUsers).to.be.an('object');
+  });
+
+  it('Testa se a classe User possui o atributo username', () => {
+    const objUsers: Users = new Users();
+    expect(typeof objUsers.username).to.be.a('string');
   });
 });
+function username(username: any) {
+  throw new Error('Function not implemented.');
+}
+
