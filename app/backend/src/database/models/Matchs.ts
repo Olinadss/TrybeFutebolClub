@@ -14,7 +14,7 @@ class Matchs extends Model {
 
   public awayTeamGoals: number;
 
-  public inProgress: string;
+  public inProgress: number;
 }
 
 Matchs.init({
