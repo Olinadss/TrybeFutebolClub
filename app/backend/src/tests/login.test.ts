@@ -39,7 +39,7 @@ describe('1 - Testa Users Model', () => {
     expect(typeof objUsers.username).to.be.a('string');
   });
 
-  it('Testa se a classe retorna um user', async () => {
+  it('Testa se a classe Users retorna um usuario', async () => {
     const objUsers = await Users.findOne()
     expect(objUsers).to.be.a('object');
   });
