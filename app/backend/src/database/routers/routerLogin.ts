@@ -6,6 +6,7 @@ const router = Router();
 
 router.post(
   '/login',
+  LoginValidation.passwordValidation,
   LoginValidation.emailValidation,
 
   UserController.getUser,
