@@ -17,7 +17,7 @@ const createTroken = (payload: Payload) => {
 
   const token = sign(payload, String(secret), jwtOptions);
 
-  return { token };
+  return token;
 };
 
 export default createTroken;
