@@ -6,10 +6,14 @@ const router = Router();
 
 router.post(
   '/login',
-  LoginValidation.passwordValidation,
+  LoginValidation.notEmail,
+  LoginValidation.notPassword,
   LoginValidation.emailValidation,
+  LoginValidation.passwordValidation,
 
   UserController.getUser,
 );
+
+router.get('/login/validation');
 
 export default router;

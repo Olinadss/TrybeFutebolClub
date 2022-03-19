@@ -16,6 +16,16 @@ class LoginValidation {
     next();
   }
 
+  static async notEmail(req: Request, res: Response, next: NextFunction) {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(StatusCode.UNAUTHORIZED).json({ message: 'All fields must be filled' });
+    }
+
+    next();
+  }
+
   static async passwordValidation(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
 
@@ -24,11 +34,17 @@ class LoginValidation {
     const verifyPassword = compareSync(password, user.password);
 
     if (!verifyPassword) {
-      console.log(verifyPassword);
-      console.log(password);
-      console.log(user.password);
-
       return res.status(StatusCode.UNAUTHORIZED).json({ message: 'Incorrect email or password' });
+    }
+
+    next();
+  }
+
+  static async notPassword(req: Request, res: Response, next: NextFunction) {
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(StatusCode.UNAUTHORIZED).json({ message: 'All fields must be filled' });
     }
 
     next();
