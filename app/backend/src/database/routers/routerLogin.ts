@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UserController from '../controller/userController';
 import LoginValidation from '../middleware/loginValidation';
+import validationToken from '../jwt/auth';
 
 const router = Router();
 
@@ -10,10 +11,8 @@ router.post(
   LoginValidation.notPassword,
   LoginValidation.emailValidation,
   LoginValidation.passwordValidation,
-
   UserController.getUser,
-);
-
-router.get('/login/validation');
+)
+  .get('/login/validate', validationToken, UserController.loginValidation);
 
 export default router;

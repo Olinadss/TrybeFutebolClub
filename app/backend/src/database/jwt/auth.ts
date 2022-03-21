@@ -22,10 +22,9 @@ const validationToken = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const userToken = verify(token, String(secret), jwtOptions);
+    verify(token, String(secret), jwtOptions);
 
-    return userToken;
-    next();
+    return next();
   } catch (error) {
     return res.status(StatusCode.UNAUTHORIZED).json({ error: 'Invalid token' });
   }
