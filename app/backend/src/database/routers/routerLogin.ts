@@ -13,6 +13,6 @@ router.post(
   LoginValidation.passwordValidation,
   UserController.getUser,
 )
-  .get('/login/validate', validationToken, UserController.loginValidation);
+  .get('/login/validate', validationToken, UserController.getUser);
 
 export default router;
