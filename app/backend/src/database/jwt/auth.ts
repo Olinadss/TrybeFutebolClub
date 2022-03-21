@@ -3,12 +3,7 @@ import { verify, SignOptions } from 'jsonwebtoken';
 import fs = require('fs');
 import StatusCode from '../controller/statusCode';
 
-const secret = fs.readFile('jwt.evaluation.key', 'utf-8', (err, data) => {
-  if (err) {
-    console.error(err);
-  }
-  return data;
-});
+const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 const validationToken = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
@@ -16,6 +11,8 @@ const validationToken = (req: Request, res: Response, next: NextFunction) => {
     algorithm: 'HS256',
     expiresIn: '5h',
   };
+
+  console.log(secret);
 
   if (!token) {
     return res.status(StatusCode.UNAUTHORIZED).json({ error: 'Token not found' });
