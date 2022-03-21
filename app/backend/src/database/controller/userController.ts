@@ -8,9 +8,16 @@ class UserController {
     const { email } = req.body;
     const user = await UserService.getUser(email);
 
+    const getUser = {
+      id: user.id,
+      username: user.username,
+      role: user.role,
+      email: user.email,
+    };
+
     const token = UserService.createToken(user.id, user.username, user.role);
 
-    res.status(StatusCode.OK).json({ user, token });
+    res.status(StatusCode.OK).json({ user: getUser, token });
   };
 
   static loginValidation = async (req: Request, res: Response) => {

@@ -29,7 +29,7 @@ class LoginValidation {
   static async passwordValidation(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
 
-    const user = await UserService.getFullUser(email);
+    const user = await UserService.getUser(email);
 
     const verifyPassword = compareSync(password, user.password);
 

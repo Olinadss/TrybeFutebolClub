@@ -5,15 +5,8 @@ import decodedTroken from '../jwt/decoded';
 class UserService {
   static getUser = async (email: string) => {
     const user = await Users.findOne({
-      attributes: { exclude: ['password'] },
       where: { email },
     });
-
-    return user as Users;
-  };
-
-  static getFullUser = async (email: string) => {
-    const user = await Users.findOne({ where: { email } });
 
     return user as Users;
   };
