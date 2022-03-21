@@ -2,12 +2,14 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import Users from '../database/models/Users';
+import * as bcrypt from 'bcryptjs';
 
 import { app } from '../app';
 
 import { Response } from 'superagent';
 import { strictEqual } from 'assert';
 import { Payload } from '../database/interface/payload';
+import UserService from '../database/service/UserService';
 
 chai.use(chaiHttp);
 
@@ -32,6 +34,7 @@ const { expect } = chai;
 //   it('Testa se a classe User existe', () => {
 //     const objUsers: Users = new Users();
 //     expect(objUsers).to.be.an('object');
+    
 //   });
 
 //   it('Testa se a classe User possui o atributo username', () => {
@@ -61,18 +64,20 @@ describe('2 - Testa as validações da rota login', () => {
   }
 
   before(() => {
-    sinon.stub(Users, 'findOne').resolves(users as Users);
+    sinon.stub(UserService, 'getUser').resolves(users as Users);
+    sinon.stub(bcrypt, 'compareSync').returns(true)
   });
 
   after(() => {
-    (Users.findOne as sinon.SinonStub).restore();
+    (UserService.getUser as sinon.SinonStub).restore();
+    (bcrypt.compareSync as sinon.SinonStub).restore();
   });
 
   it('se a rota login retorna status 200 OK', async () => {
     chaiHttpResponse = await chai
-        .request(app)
-        .post('/login')
-        .send(login);    
+      .request(app)
+      .post('/login')
+      .send({ email: 'user@user.com', password: 'secret_user' });  
     
     expect(chaiHttpResponse.status).to.be.equal(200);
   });
