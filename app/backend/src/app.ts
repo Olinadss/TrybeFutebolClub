@@ -1,6 +1,7 @@
 import * as express from 'express';
 import LoginRoutes from './database/routers/routerLogin';
 import ClubsRoutes from './database/routers/routerClubs';
+import MatchsRoutes from './database/routers/routerMatchs';
 
 class App {
   public app: express.Express;
@@ -22,6 +23,7 @@ class App {
     this.app.use(express.json());
     this.app.use(LoginRoutes);
     this.app.use(ClubsRoutes);
+    this.app.use(MatchsRoutes);
   }
 
   // ...
