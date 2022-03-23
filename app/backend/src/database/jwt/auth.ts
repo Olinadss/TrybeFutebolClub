@@ -12,8 +12,6 @@ const validationToken = (req: Request, res: Response, next: NextFunction) => {
     expiresIn: '5h',
   };
 
-  console.log(secret);
-
   if (!token) {
     return res.status(StatusCode.UNAUTHORIZED).json({ error: 'Token not found' });
   }
