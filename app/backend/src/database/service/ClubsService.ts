@@ -4,7 +4,7 @@ class ClubsService {
   static getAll = async () => {
     const listClubs = await Clubs.findAll();
 
-    return [listClubs];
+    return listClubs;
   };
 }
 
