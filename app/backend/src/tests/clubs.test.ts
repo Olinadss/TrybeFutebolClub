@@ -5,7 +5,8 @@ import { app } from '../app';
 import { Response } from 'superagent';
 chai.use(chaiHttp);
 const { expect } = chai;
-import Clubs from '../database/models/Clubs'
+import Clubs from '../database/models/Clubs';
+import Matchs from '../database/models/Matchs';
 
 
 describe('Testa a rola clubs', () => {
@@ -69,8 +70,60 @@ describe('Testa a rola clubs', () => {
         .get('/clubs/2')
   
       expect(chaiHttpResponse.status).to.be.equal(200);
-      expect(chaiHttpResponse.body).to.be.equal(resultAll[1]);
+      expect(chaiHttpResponse.body).to.be.deep.equal(resultAll[1]);
     });
   }
-
 });
+
+describe('Testa a rola matchs', () => {
+  let chaiHttpResponse: Response;
+
+  const matchsAll = [
+    {
+      "id": 1,
+      "homeTeam": 16,
+      "homeTeamGoals": 1,
+      "awayTeam": 8,
+      "awayTeamGoals": 1,
+      "inProgress": false,
+      "homeClub": {
+        "clubName": "São Paulo"
+      },
+      "awayClub": {
+        "clubName": "Grêmio"
+      }
+    },
+    {
+      "id": 41,
+      "homeTeam": 16,
+      "homeTeamGoals": 2,
+      "awayTeam": 9,
+      "awayTeamGoals": 0,
+      "inProgress": true,
+      "homeClub": {
+        "clubName": "São Paulo"
+      },
+      "awayClub": {
+        "clubName": "Internacional"
+      }
+    }
+  ]
+
+  {
+    before(() => {
+      sinon.stub(Matchs, 'findAll').resolves(matchsAll as unknown as Matchs[])
+    })
+
+    after(() => {
+      (Matchs.findAll as sinon.SinonStub).restore();
+    })
+  }
+
+  it('acessar a rota matchs retorna status OK', async () => {
+    chaiHttpResponse = await chai 
+      .request(app)
+      .get('/matchs');
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+  });
+})

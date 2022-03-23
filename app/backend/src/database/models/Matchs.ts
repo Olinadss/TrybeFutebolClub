@@ -59,8 +59,8 @@ Clubs.belongsTo(Matchs, { foreignKey: 'awayTeam', as: 'teamB' });
 
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId' });
-Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId' });
+Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId1' });
+Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId2' });
 
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
