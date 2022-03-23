@@ -8,6 +8,14 @@ class ClubsController {
 
     res.status(StatusCode.OK).json(listClubs);
   };
+
+  static getOne = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const club = await ClubsService.getOne(id);
+
+    res.status(StatusCode.OK).json(club);
+  };
 }
 
 export default ClubsController;

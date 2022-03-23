@@ -6,6 +6,12 @@ class ClubsService {
 
     return listClubs;
   };
+
+  static getOne = async (id: string) => {
+    const club = await Clubs.findOne({ where: { id } });
+
+    return club;
+  };
 }
 
 export default ClubsService;
