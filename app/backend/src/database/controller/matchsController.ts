@@ -14,6 +14,14 @@ class MatchsController {
     const listMatchs = await MatchsService.getAll();
     res.status(StatusCode.OK).json(listMatchs);
   };
+
+  static create = async (req: Request, res:Response) => {
+    const { body } = req;
+
+    const newMatch = await MatchsService.createMatch(body);
+
+    res.status(StatusCode.CREATED).json(newMatch);
+  };
 }
 
 export default MatchsController;

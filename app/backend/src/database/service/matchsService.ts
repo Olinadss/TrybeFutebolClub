@@ -3,8 +3,6 @@ import Matchs from '../models/Matchs';
 
 class MatchsService {
   static getAll = async (inProgress?: boolean) => {
-    console.log('dentro do if', inProgress);
-
     if (inProgress === undefined) {
       return Matchs.findAll({
         include: [{
@@ -22,6 +20,18 @@ class MatchsService {
         model: Clubs, as: 'awayClub', attributes: { exclude: ['id'] },
       }],
     });
+  };
+
+  static createMatch = async ({
+    homeTeam,
+    awayTeam,
+    homeTeamGoals,
+    awayTeamGoals,
+    inProgress }: Matchs) => {
+    const newMatch = await Matchs
+      .create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress });
+
+    return newMatch;
   };
 }
 
