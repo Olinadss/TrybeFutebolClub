@@ -10,6 +10,9 @@ class MatchsController {
       const listMatchs = await MatchsService.getAll(status);
       return res.status(StatusCode.OK).json(listMatchs);
     }
+
+    const listMatchs = await MatchsService.getAll();
+    res.status(StatusCode.OK).json(listMatchs);
   };
 }
 
