@@ -22,6 +22,16 @@ class MatchsController {
 
     res.status(StatusCode.CREATED).json(newMatch);
   };
+
+  static updateProgress = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    console.log(id);
+
+    const update = await MatchsService.updateProgress(id);
+
+    res.status(StatusCode.OK).json(update);
+  };
 }
 
 export default MatchsController;

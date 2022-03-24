@@ -33,6 +33,20 @@ class MatchsService {
 
     return newMatch;
   };
+
+  static updateProgress = async (id: string) => {
+    console.log('service', id);
+
+    await Matchs.update({ inProgress: false }, {
+      where: {
+        id,
+      },
+    });
+
+    const match = Matchs.findByPk(id);
+
+    return match;
+  };
 }
 
 export default MatchsService;
