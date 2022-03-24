@@ -41,7 +41,7 @@ Matchs.init({
     allowNull: false,
   },
   inProgress: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BOOLEAN,
     allowNull: false,
   },
 }, {
@@ -54,13 +54,13 @@ Matchs.init({
   * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
-Clubs.belongsTo(Matchs, { foreignKey: 'homeTeam', as: 'teamA' });
-Clubs.belongsTo(Matchs, { foreignKey: 'awayTeam', as: 'teamB' });
+Clubs.hasMany(Matchs, { foreignKey: 'id', as: 'homeMatch' });
+Clubs.hasMany(Matchs, { foreignKey: 'id', as: 'awayMatch' });
 
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId1' });
-Matchs.hasMany(Clubs, { foreignKey: 'clubs_id', as: 'clubsId2' });
+Matchs.belongsTo(Clubs, { foreignKey: 'homeTeam', as: 'homeMatch' });
+Matchs.belongsTo(Clubs, { foreignKey: 'awayTeam', as: 'awayMatch' });
 
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
