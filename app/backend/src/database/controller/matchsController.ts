@@ -26,11 +26,18 @@ class MatchsController {
   static updateProgress = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    console.log(id);
-
     const update = await MatchsService.updateProgress(id);
 
     res.status(StatusCode.OK).json(update);
+  };
+
+  static updateMatchs = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    const match = await MatchsService.updateMatchs(id, homeTeamGoals, awayTeamGoals);
+
+    res.status(StatusCode.OK).json(match);
   };
 }
 

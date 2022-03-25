@@ -38,9 +38,17 @@ class MatchsService {
     console.log('service', id);
 
     await Matchs.update({ inProgress: false }, {
-      where: {
-        id,
-      },
+      where: { id },
+    });
+
+    const match = Matchs.findByPk(id);
+
+    return match;
+  };
+
+  static updateMatchs = async (id: string, homeTeamGoals: number, awayTeamGoals: number) => {
+    await Matchs.update({ homeTeamGoals, awayTeamGoals }, {
+      where: { id },
     });
 
     const match = Matchs.findByPk(id);

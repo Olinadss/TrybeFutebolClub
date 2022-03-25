@@ -8,6 +8,7 @@ const router = Router();
 router
   .patch('/matchs/:id/finish', MatchsController.updateProgress)
   .get('/matchs', MatchsController.getAll)
+  .patch('/matchs/:id', MatchsController.updateMatchs)
   .post(
     '/matchs',
     MatchValidation.validationTeam,
