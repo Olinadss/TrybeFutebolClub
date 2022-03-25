@@ -1,3 +1,5 @@
+// import { ClubsAndMatchs } from '../interface/clubsAndMatchs';
+import { ClubsAndMatchs } from '../interface/clubsAndMatchs';
 import Clubs from '../models/Clubs';
 import Matchs from '../models/Matchs';
 
@@ -14,7 +16,7 @@ class ServiceLeaderboards {
     return allTeam;
   };
 
-  static getHomeTeam = async () => {
+  static getHomeTeam = async (): Promise<ClubsAndMatchs[] | Clubs[]> => {
     const homeTeam = await Clubs.findAll({
       include: [{
         model: Matchs, as: 'homeClubMatchs', where: { inProgress: false },
