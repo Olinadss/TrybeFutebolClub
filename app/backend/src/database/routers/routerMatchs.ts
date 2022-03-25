@@ -8,6 +8,11 @@ const router = Router();
 router
   .patch('/matchs/:id/finish', MatchsController.updateProgress)
   .get('/matchs', MatchsController.getAll)
-  .post('/matchs', MatchValidation.validationTeam, MatchsController.create);
+  .post(
+    '/matchs',
+    MatchValidation.validationTeam,
+    MatchValidation.validationTeamExist,
+    MatchsController.create,
+  );
 
 export default router;
