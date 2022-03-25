@@ -116,14 +116,75 @@ describe('Testa a rola matchs', () => {
 
     after(() => {
       (Matchs.findAll as sinon.SinonStub).restore();
+    });
+
+    it('acessar a rota matchs retorna status OK', async () => {
+      chaiHttpResponse = await chai 
+        .request(app)
+        .get('/matchs');
+  
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  }
+  {
+    const matchCreatedOK = {
+      "id": 1,
+      "homeTeam": 16,
+      "homeTeamGoals": 2,
+      "awayTeam": 8,
+      "awayTeamGoals": 2,
+      "inProgress": true,
+    }
+    
+    const matchsCreate = {
+      "homeTeam": 16,
+      "homeTeamGoals": 2,
+      "awayTeam": 8,
+      "awayTeamGoals": 2,
+      "inProgress": true,
+    }
+
+    before(() => {
+      sinon.stub(Matchs, 'create').resolves(matchCreatedOK as Matchs)
     })
+
+    after(() => {
+      (Matchs.create as sinon.SinonStub).restore();
+    });
+    
+    it('se acessar a rota matchs post retorna status 201', async () => {
+      chaiHttpResponse = await chai
+      .request(app)
+      .post('/matchs')
+      .send(matchsCreate);
+      
+      expect(chaiHttpResponse.status).to.be.equal(201);
+      expect(chaiHttpResponse.body).to.be.deep.equal(matchCreatedOK)
+    }); 
   }
 
-  it('acessar a rota matchs retorna status OK', async () => {
-    chaiHttpResponse = await chai 
-      .request(app)
-      .get('/matchs');
+  {
 
-    expect(chaiHttpResponse.status).to.be.equal(200);
-  });
-})
+    const matchUpdate = {
+      "homeTeamGoals": 3,
+      "awayTeamGoals": 1
+    }
+
+    before(() => {
+      sinon.stub(Matchs, 'update').resolves()
+    })
+
+    after(() => {
+      (Matchs.update as sinon.SinonStub).restore();
+    });
+
+    it('acessar a rota matchs retorna status 200', async () => {
+      chaiHttpResponse = await chai 
+        .request(app)
+        .patch('/matchs/:id')
+        .send(matchUpdate);
+  
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  }
+});
