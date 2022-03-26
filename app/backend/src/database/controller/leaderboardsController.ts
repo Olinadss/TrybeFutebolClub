@@ -20,7 +20,7 @@ class LeaderboardsController {
 
     const time = homeTeam.map((item) => {
       const obj = {
-        name: item.clubeName,
+        name: item.clubName,
         totalPoints: LeaderboarHomedMiddleware.totalPointsHome(item.homeClubMatchs),
         totalGames: LeaderboarHomedMiddleware.totalGames(item.homeClubMatchs),
         totalVictories: LeaderboarHomedMiddleware.totalVictories(item.homeClubMatchs),
@@ -29,6 +29,9 @@ class LeaderboardsController {
       };
       return obj;
     });
+
+    console.log(time);
+    console.log(homeTeam);
 
     // const pontos = LeaderboarHomedMiddleware.totalDraws(homeTeam);
 

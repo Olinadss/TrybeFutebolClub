@@ -1,6 +1,6 @@
 export interface ClubsAndMatchs {
   id: number
-  clubeName: string
+  clubName: string
   homeClubMatchs: [{
     id: number
     homeTeam: number
