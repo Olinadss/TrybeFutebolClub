@@ -26,12 +26,11 @@ class LeaderboardsController {
         totalVictories: LeaderboarHomedMiddleware.totalVictories(item.homeClubMatchs),
         totalDraws: LeaderboarHomedMiddleware.totalDraws(item.homeClubMatchs),
         totalLosses: LeaderboarHomedMiddleware.totalLosses(item.homeClubMatchs),
+        goalsFavor: LeaderboarHomedMiddleware.goalsFavor(item.homeClubMatchs),
+        goalsOwn: LeaderboarHomedMiddleware.goalsOwn(item.homeClubMatchs),
       };
       return obj;
     });
-
-    console.log(time);
-    console.log(homeTeam);
 
     // const pontos = LeaderboarHomedMiddleware.totalDraws(homeTeam);
 

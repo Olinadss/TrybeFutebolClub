@@ -58,6 +58,12 @@ class LeaderboarHomedMiddleware {
 
     return totalPoints;
   };
+
+  static goalsOwn = (arrayClubs: ClubTotalMatchs[]) => {
+    const totalPoints = arrayClubs.reduce((acc, cur) => acc + cur.awayTeamGoals, 0);
+
+    return totalPoints;
+  };
 }
 
 export default LeaderboarHomedMiddleware;
