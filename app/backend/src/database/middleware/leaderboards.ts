@@ -15,54 +15,76 @@ class LeaderboarHomedMiddleware {
   };
 
   static totalGames = (arrayClubs: ClubTotalMatchs[]) => {
-    const totalPoints = arrayClubs.length;
+    const totalGames = arrayClubs.length;
 
-    return totalPoints;
+    return totalGames;
   };
 
   static totalVictories = (arrayClubs: ClubTotalMatchs[]) => {
-    const totalPoints = arrayClubs.reduce((acc, cur) => {
+    const totalVictories = arrayClubs.reduce((acc, cur) => {
       if (cur.homeTeamGoals > cur.awayTeamGoals) {
         return acc + 1;
       }
       return acc;
     }, 0);
 
-    return totalPoints;
+    return totalVictories;
   };
 
   static totalDraws = (arrayClubs: ClubTotalMatchs[]) => {
-    const totalPoints = arrayClubs.reduce((acc, cur) => {
+    const totalDraws = arrayClubs.reduce((acc, cur) => {
       if (cur.homeTeamGoals === cur.awayTeamGoals) {
         return acc + 1;
       }
       return acc;
     }, 0);
 
-    return totalPoints;
+    return totalDraws;
   };
 
   static totalLosses = (arrayClubs: ClubTotalMatchs[]) => {
-    const totalPoints = arrayClubs.reduce((acc, cur) => {
+    const totalLosses = arrayClubs.reduce((acc, cur) => {
       if (cur.homeTeamGoals < cur.awayTeamGoals) {
         return acc + 1;
       }
       return acc;
     }, 0);
 
-    return totalPoints;
+    return totalLosses;
   };
 
   static goalsFavor = (arrayClubs: ClubTotalMatchs[]) => {
-    const totalPoints = arrayClubs.reduce((acc, cur) => acc + cur.homeTeamGoals, 0);
+    const goalsFavor = arrayClubs.reduce((acc, cur) => acc + cur.homeTeamGoals, 0);
 
-    return totalPoints;
+    return goalsFavor;
   };
 
   static goalsOwn = (arrayClubs: ClubTotalMatchs[]) => {
-    const totalPoints = arrayClubs.reduce((acc, cur) => acc + cur.awayTeamGoals, 0);
+    const goalsOwn = arrayClubs.reduce((acc, cur) => acc + cur.awayTeamGoals, 0);
 
-    return totalPoints;
+    return goalsOwn;
+  };
+
+  static goalsBalance = (arrayClubs: ClubTotalMatchs[]) => {
+    const totalGoalsPro = arrayClubs.reduce((acc, cur) => acc + cur.homeTeamGoals, 0);
+
+    const totalGoalsOwn = arrayClubs.reduce((acc, cur) => acc + cur.awayTeamGoals, 0);
+
+    const goalsBalance = totalGoalsPro - totalGoalsOwn;
+
+    return goalsBalance;
+  };
+
+  static efficiency = (arrayClubs: ClubTotalMatchs[]) => {
+    const totalGames = arrayClubs.length;
+
+    const totalPoints = this.totalPointsHome(arrayClubs);
+
+    let efficiency = (totalPoints / (totalGames * 3)) * 100;
+
+    efficiency = parseFloat(efficiency.toFixed(2));
+
+    return efficiency;
   };
 }
 

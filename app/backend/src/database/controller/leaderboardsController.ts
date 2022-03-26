@@ -28,6 +28,8 @@ class LeaderboardsController {
         totalLosses: LeaderboarHomedMiddleware.totalLosses(item.homeClubMatchs),
         goalsFavor: LeaderboarHomedMiddleware.goalsFavor(item.homeClubMatchs),
         goalsOwn: LeaderboarHomedMiddleware.goalsOwn(item.homeClubMatchs),
+        goalsBalance: LeaderboarHomedMiddleware.goalsBalance(item.homeClubMatchs),
+        efficiency: LeaderboarHomedMiddleware.efficiency(item.homeClubMatchs),
       };
       return obj;
     });
