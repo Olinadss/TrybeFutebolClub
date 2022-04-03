@@ -3,6 +3,7 @@ import StatusCode from './statusCode';
 import ServiceLeaderboards from '../service/serviceLeaderboards';
 import { ClubsAndMatchs } from '../interface/clubsAndMatchs';
 import CreateLeaderboards from '../middleware/createLeaderboards';
+import { ClubsAndMatchsAwayTeam } from '../interface/clubsAndMatchsAwayTeam';
 
 class LeaderboardsController {
   static getAll = async (req: Request, res: Response) => {
@@ -14,7 +15,7 @@ class LeaderboardsController {
   static getHomeTeam = async (req: Request, res: Response) => {
     const homeTeam = await ServiceLeaderboards.getHomeTeam() as ClubsAndMatchs[];
 
-    const time = CreateLeaderboards.createLeaderboard(homeTeam);
+    const time = CreateLeaderboards.createHomeLeaderboard(homeTeam);
 
     const teste = CreateLeaderboards.orderLeaderboard(time);
 
@@ -22,9 +23,13 @@ class LeaderboardsController {
   };
 
   static getAwayTeam = async (req: Request, res: Response) => {
-    const awayTeam = await ServiceLeaderboards.getAwayTeam();
+    const awayTeam = await ServiceLeaderboards.getAwayTeam() as unknown as ClubsAndMatchsAwayTeam[];
 
-    res.status(StatusCode.OK).json(awayTeam);
+    const leaderboardAwayTeam = CreateLeaderboards.createAwayLeaderboard(awayTeam);
+
+    const orderLeaderboard = CreateLeaderboards.orderLeaderboard(leaderboardAwayTeam);
+
+    res.status(StatusCode.OK).json(orderLeaderboard);
   };
 }
 

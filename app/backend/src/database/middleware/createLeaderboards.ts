@@ -1,9 +1,11 @@
 import LeaderboarHomedMiddleware from './leaderboardsHome';
 import { ClubsAndMatchs } from '../interface/clubsAndMatchs';
 import { Ileaderboards } from '../interface/Ileaderboards';
+import LeaderboarAwayMiddleware from './leaderboardsAway';
+import { ClubsAndMatchsAwayTeam } from '../interface/clubsAndMatchsAwayTeam';
 
 class CreateLeaderboards {
-  static createLeaderboard = (arrayClubs: ClubsAndMatchs[]) => {
+  static createHomeLeaderboard = (arrayClubs: ClubsAndMatchs[]) => {
     const leaderboards = arrayClubs.map((item) => {
       const obj = {
         name: item.clubName,
@@ -16,6 +18,26 @@ class CreateLeaderboards {
         goalsOwn: LeaderboarHomedMiddleware.goalsOwn(item.homeClubMatchs),
         goalsBalance: LeaderboarHomedMiddleware.goalsBalance(item.homeClubMatchs),
         efficiency: LeaderboarHomedMiddleware.efficiency(item.homeClubMatchs),
+      };
+      return obj;
+    });
+
+    return leaderboards;
+  };
+
+  static createAwayLeaderboard = (arrayClubs: ClubsAndMatchsAwayTeam[]) => {
+    const leaderboards = arrayClubs.map((item) => {
+      const obj = {
+        name: item.clubName,
+        totalPoints: LeaderboarAwayMiddleware.totalPointsHome(item.awayClubMatchs),
+        totalGames: LeaderboarAwayMiddleware.totalGames(item.awayClubMatchs),
+        totalVictories: LeaderboarAwayMiddleware.totalVictories(item.awayClubMatchs),
+        totalDraws: LeaderboarAwayMiddleware.totalDraws(item.awayClubMatchs),
+        totalLosses: LeaderboarAwayMiddleware.totalLosses(item.awayClubMatchs),
+        goalsFavor: LeaderboarAwayMiddleware.goalsFavor(item.awayClubMatchs),
+        goalsOwn: LeaderboarAwayMiddleware.goalsOwn(item.awayClubMatchs),
+        goalsBalance: LeaderboarAwayMiddleware.goalsBalance(item.awayClubMatchs),
+        efficiency: LeaderboarAwayMiddleware.efficiency(item.awayClubMatchs),
       };
       return obj;
     });

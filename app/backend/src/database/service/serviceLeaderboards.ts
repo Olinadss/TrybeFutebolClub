@@ -27,7 +27,7 @@ class ServiceLeaderboards {
     return homeTeam;
   };
 
-  static getAwayTeam = async () => {
+  static getAwayTeam = async (): Promise<ClubsAndMatchs[] | Clubs[]> => {
     const awayTeam = await Clubs.findAll({
       include: [{
         model: Matchs, as: 'awayClubMatchs', where: { inProgress: false },
