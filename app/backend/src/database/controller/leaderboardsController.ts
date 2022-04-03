@@ -4,12 +4,17 @@ import ServiceLeaderboards from '../service/serviceLeaderboards';
 import { ClubsAndMatchs } from '../interface/clubsAndMatchs';
 import CreateLeaderboards from '../middleware/createLeaderboards';
 import { ClubsAndMatchsAwayTeam } from '../interface/clubsAndMatchsAwayTeam';
+import { AllArrayClubs } from '../interface/allClubs';
 
 class LeaderboardsController {
   static getAll = async (req: Request, res: Response) => {
-    const allMatchs = await ServiceLeaderboards.getAll();
+    const allMatchs = await ServiceLeaderboards.getAll() as unknown as AllArrayClubs[];
 
-    res.status(StatusCode.OK).json(allMatchs);
+    const leaderboardAwayTeam = CreateLeaderboards.createLeaderboard(allMatchs);
+
+    const orderLeaderboard = CreateLeaderboards.orderLeaderboard(leaderboardAwayTeam);
+
+    res.status(StatusCode.OK).json(orderLeaderboard);
   };
 
   static getHomeTeam = async (req: Request, res: Response) => {
@@ -17,9 +22,9 @@ class LeaderboardsController {
 
     const time = CreateLeaderboards.createHomeLeaderboard(homeTeam);
 
-    const teste = CreateLeaderboards.orderLeaderboard(time);
+    const orderLeaderboard = CreateLeaderboards.orderLeaderboard(time);
 
-    res.status(StatusCode.OK).json(teste);
+    res.status(StatusCode.OK).json(orderLeaderboard);
   };
 
   static getAwayTeam = async (req: Request, res: Response) => {
